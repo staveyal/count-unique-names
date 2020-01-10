@@ -3,3 +3,6 @@
 
 ## File structure
 - `data/`: Contains CSV sheets used for the project
+
+## Data sources
+- [Common nickname CSV](https://github.com/onyxrev/common_nickname_csv)
