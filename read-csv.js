@@ -1,8 +1,9 @@
+/*
+ * This file handles reading the CSV files and parsing them to an array
+ */
+const dataDir = `${process.cwd()}/data`
 const fs = require('fs')
 const parse = require('csv-parse/lib/sync')
-
-// Array that stores the name and aliases pairs
-const data = []
 
 /**
  * Reads the CSV file and storing it to memory in an easily accessible form
@@ -22,8 +23,9 @@ const data = []
  * However, the same value for each alias could also function as a name
  * I.E. Deb can point to Debbie, and Debbie can point to Deborah
  */
-const readSingleCSV = (data, loc) => {
-  let content = fs.readFileSync(`${process.cwd()}/${loc}`, { encoding: 'utf-8' })
+const readSingleCsv = (data, loc) => {
+  console.log(loc)
+  let content = fs.readFileSync(loc, { encoding: 'utf-8' })
   content = content.toLowerCase().replace(/ /g, '')
   // Parse the content
   data.push(parse(content, {
@@ -31,4 +33,10 @@ const readSingleCSV = (data, loc) => {
     skip_empty_lines: true
   }))
 }
-readSingleCSV(data, 'data/nicknames.csv')
+
+const readCsvs = data => {
+  const files = fs.readdirSync(dataDir)
+  files.forEach(file => readSingleCsv(data, `${dataDir}/${file}`))
+}
+
+module.exports = data => readCsvs(data)
