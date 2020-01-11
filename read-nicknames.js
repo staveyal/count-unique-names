@@ -1,7 +1,9 @@
 /*
  * This file handles reading the nickname CSV files and parsing them to an array
  */
-const dataDir = `${process.cwd()}/data/nicknames`
+const path = require('path')
+// Path to nicknames folder
+const dataDir = path.join(process.cwd(), 'data', 'nicknames')
 const fs = require('fs')
 const parse = require('csv-parse/lib/sync')
 
@@ -33,4 +35,7 @@ const readCsvs = data => {
   files.forEach(file => readSingleCsv(data, `${dataDir}/${file}`))
 }
 
-module.exports = data => readCsvs(data)
+// Initialising data array
+const data = []
+console.log('Array init')
+readCsvs(data)
