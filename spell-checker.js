@@ -84,7 +84,6 @@ const makeSingleEdit = word => {
       newWord = word.slice()
       newWord[i] = alphabet[j]
       results.push(newWord.join(''))
-      if (newWord.join('') === 'egli') console.log('egli lmao')
     }
   }
 
