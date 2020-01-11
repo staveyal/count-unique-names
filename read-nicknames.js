@@ -1,7 +1,7 @@
 /*
- * This file handles reading the CSV files and parsing them to an array
+ * This file handles reading the nickname CSV files and parsing them to an array
  */
-const dataDir = `${process.cwd()}/data`
+const dataDir = `${process.cwd()}/data/nicknames`
 const fs = require('fs')
 const parse = require('csv-parse/lib/sync')
 
