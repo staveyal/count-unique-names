@@ -17,8 +17,8 @@ let firstnames = fs.readFileSync(firstnamesPath, { encoding: 'utf-8' }).toLowerC
 let surnames = fs.readFileSync(surnamesPath, { encoding: 'utf-8' }).toLowerCase()
 
 // Split to words
-firstnames = firstnames.split('\n')
-surnames = surnames.split('\n')
+firstnames = firstnames.replace(/\r/g, '').split('\n')
+surnames = surnames.replace(/\r/g, '').split('\n')
 
 console.log(`firstnames: read`)
 console.log(`surnames: read`)
@@ -51,6 +51,7 @@ const makeSingleEdit = word => {
       newWord.splice(i, 0, alphabet[j])
       // Push newWord to the results as a string
       results.push(newWord.join(''))
+      if (newWord.join('') === 'jegli') console.log('jegli lmao')
     }
   }
 
@@ -77,15 +78,56 @@ const makeSingleEdit = word => {
     }
   }
 
-  // Substituting any character in the word with any character in the alphabet
+//   Substituting any character in the word with any character in the alphabet
   for (let i = 0; i < word.length; i++) {
     for (let j = 0; j < alphabet.length; j++) {
       newWord = word.slice()
       newWord[i] = alphabet[j]
       results.push(newWord.join(''))
+      if (newWord.join('') === 'egli') console.log('egli lmao')
     }
   }
-  console.log(results)
+
+  return results
 }
 
 makeSingleEdit('gau')
+
+/**
+ * This function finds the correct spelling of a word according to a dataset of words
+ * Steps:
+ * - If a word is a known word, return the word
+ * - If the word has any known word single edit away, return the word
+ * - If the word has any known word two edits away, return the word
+ * @param {String} word The word to find the correct spelling of
+ * @param {Array[String]} list The list of words to use to determine the correct spelling
+ */
+const correct = (word, list) => {
+  // Known word
+  if (list.includes(word)) return word
+
+  // Makes every single edit away word, and checks if it exists
+  const singleEditWords = makeSingleEdit(word)
+
+  for (let i = 0; i < singleEditWords.length; i++) {
+    if (list.includes(singleEditWords[i])) return singleEditWords[i]
+  }
+
+  // Make a list of doubly edited words, applying single edits to already single edited words
+  let doubleEditWords = []
+  singleEditWords.forEach(newWord => {
+    doubleEditWords = doubleEditWords.concat(makeSingleEdit(newWord))
+    if (makeSingleEdit(newWord).includes('jegli')) console.log('jegli pls')
+  })
+
+  // Checks if any of the words exist in the list
+  for (let i = 0; i < doubleEditWords.length; i++) {
+    if (list.includes(doubleEditWords[i])) return doubleEditWords[i]
+  }
+  // If no fix was found, return the word
+  return word
+}
+// console.log(makeSingleEdit('enli'))
+console.log(correct('egli', surnames))
+console.log(correct('enli', surnames))
+// console.log(surnames.includes('eglin'))
