@@ -126,7 +126,8 @@ const correct = (word, list) => {
   // If no fix was found, return the word
   return word
 }
-// console.log(makeSingleEdit('enli'))
-console.log(correct('egli', surnames))
-console.log(correct('enli', surnames))
-// console.log(surnames.includes('eglin'))
+
+const correctFirstname = word => correct(word, firstnames)
+const correctSurname = word => correct(word, surnames)
+
+console.log(correctFirstname('debb'))
