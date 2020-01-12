@@ -36,11 +36,34 @@ const countUniqueNames = (billFirstName, billLastName, shipFirstName, shipLastNa
     count++
   }
 
-  // // Fix potential typos
-  // billLastName = correctSurname(billLastName)
-  // shipLastName = correctSurname(shipLastName)
+  /**
+   * Handling the name on card
+   * Since we don't know which word is the first name and which is the last name, we first need to try and identify the last name
+   * The only possible difference in the last name is a typo, since last names do not have nicknames
+   * So we use the compareWords function in order to do that
+   */
+  billNameOnCard = billNameOnCard.split(' ')
+  billNameOnCard = [billNameOnCard[0], billNameOnCard[billNameOnCard.length - 1]]
 
-  // Initial name count. Starts at 1
+  // Attempting to identify the last name on card, according to the billing person
+  // If the first word is the family name put it in the last word
+  if (compareWords(billLastName, billNameOnCard[0])) {
+    const firstname = billNameOnCard[1]
+    billNameOnCard[1] = billNameOnCard[0]
+    billNameOnCard[0] = firstname
+    if (!checkNickname(correctFirstname(billNameOnCard[0]), billFirstName)) {
+      count++
+    }
+  // Same last name, at the right place
+  } else if (compareWords(billLastName, billNameOnCard[1])) {
+    if (!checkNickname(correctFirstname(billNameOnCard[0]), billFirstName)) {
+      count++
+    }
+  } else {
+    // The last name is different
+    count++
+  }
+
   return count
 }
 
