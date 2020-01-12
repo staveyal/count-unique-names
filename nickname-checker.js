@@ -23,11 +23,18 @@ const parse = require('csv-parse/lib/sync')
 const readSingleCsv = (data, loc) => {
   console.log(loc)
   let content = fs.readFileSync(loc, { encoding: 'utf-8' })
-  content = content.toLowerCase().replace(/ /g, '')
+  content = content.toLowerCase().replace(/ /g, '').replace(/\r/g, '')
+  content = content.split('\n')
+
+  for (let i = 0; i < content.length; i++) {
+    content[i] = content[i].split(',')
+    data.push(content[i])
+  }
+
   // Parse the content
-  data.push(parse(content, {
-    skip_empty_lines: true
-  }).slice)
+  // data.push(parse(content, {
+  //   skip_empty_lines: true
+  // }).slice())
 }
 
 const readCsvs = data => {
@@ -39,3 +46,22 @@ const readCsvs = data => {
 const data = []
 console.log('Array init')
 readCsvs(data)
+
+// Check inside the data array if there exists any array with the two names specified in it
+const checkNickname = (name1, name2) => {
+  name1 = name1.toLowerCase()
+  name2 = name2.toLowerCase()
+
+  for (let i = 0; i < data.length; i++) {
+    if (data[i].includes(name1) && data[i].includes(name2)) {
+      console.log('gottem')
+      return true
+    }
+  }
+
+  return false
+}
+
+module.exports = {
+  checkNickname
+}
