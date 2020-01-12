@@ -92,7 +92,7 @@ const makeSingleEdit = word => {
 
 /**
  * Determines whether two words are similar, saving the time of looking them up in the list of words
- * Determines whether the two words are an edit away
+ * Makes up to 2 edit on one of the words, and checks if the other word is a product of one of the edits
  * @param {String} word1
  * @param {String} word2
  */
