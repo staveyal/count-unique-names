@@ -44,5 +44,6 @@ const countUniqueNames = (billFirstName, billLastName, shipFirstName, shipLastNa
   return count
 }
 
-// countUniqueNames(“Deborah”,”Egli”,”Deborah”,”Egli”,”Deborah Egli”)
-console.log(countUniqueNames('Deborah', 'Egli', 'Deborah', 'Egli', 'Deborah Egli'))
+module.exports = {
+  countUniqueNames
+}

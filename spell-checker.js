@@ -78,7 +78,7 @@ const makeSingleEdit = word => {
     }
   }
 
-//   Substituting any character in the word with any character in the alphabet
+  // Substituting any character in the word with any character in the alphabet
   for (let i = 0; i < word.length; i++) {
     for (let j = 0; j < alphabet.length; j++) {
       newWord = word.slice()
