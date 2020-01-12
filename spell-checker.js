@@ -20,8 +20,8 @@ let surnames = fs.readFileSync(surnamesPath, { encoding: 'utf-8' }).toLowerCase(
 firstnames = firstnames.replace(/\r/g, '').split('\n')
 surnames = surnames.replace(/\r/g, '').split('\n')
 
-console.log(`firstnames: read`)
-console.log(`surnames: read`)
+// LOGGING
+console.log('spell-checker.js')
 
 const alphabet = 'abcdefghijklmnopqrstuvwxyz'
 
@@ -90,7 +90,27 @@ const makeSingleEdit = word => {
   return results
 }
 
-makeSingleEdit('gau')
+/**
+ * Determines whether two words are similar, saving the time of looking them up in the list of words
+ * Determines whether the two words are an edit away
+ * @param {String} word1
+ * @param {String} word2
+ */
+const compareWords = (word1, word2) => {
+  if (makeSingleEdit(word1).includes(word2)) {
+    return true
+  } else {
+    let doubleEditWords = []
+    makeSingleEdit(word1).forEach(word => {
+      doubleEditWords = doubleEditWords.concat(makeSingleEdit(word))
+    })
+    if (doubleEditWords.includes(word2)) {
+      return true
+    } else {
+      return false
+    }
+  }
+}
 
 /**
  * This function finds the correct spelling of a word according to a dataset of words
@@ -117,7 +137,6 @@ const correct = (word, list) => {
   let doubleEditWords = []
   singleEditWords.forEach(newWord => {
     doubleEditWords = doubleEditWords.concat(makeSingleEdit(newWord))
-    if (makeSingleEdit(newWord).includes('jegli')) console.log('jegli pls')
   })
 
   // Checks if any of the words exist in the list
@@ -133,5 +152,6 @@ const correctSurname = word => correct(word, surnames)
 
 module.exports = {
   correctFirstname,
-  correctSurname
+  correctSurname,
+  compareWords
 }
