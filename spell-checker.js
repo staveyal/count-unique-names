@@ -20,9 +20,6 @@ let surnames = fs.readFileSync(surnamesPath, { encoding: 'utf-8' }).toLowerCase(
 firstnames = firstnames.replace(/\r/g, '').split('\n')
 surnames = surnames.replace(/\r/g, '').split('\n')
 
-// LOGGING
-console.log('spell-checker.js')
-
 const alphabet = 'abcdefghijklmnopqrstuvwxyz'
 
 /**
@@ -51,7 +48,6 @@ const makeSingleEdit = word => {
       newWord.splice(i, 0, alphabet[j])
       // Push newWord to the results as a string
       results.push(newWord.join(''))
-      if (newWord.join('') === 'jegli') console.log('jegli lmao')
     }
   }
 

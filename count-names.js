@@ -32,7 +32,6 @@ const countUniqueNames = (billFirstName, billLastName, shipFirstName, shipLastNa
     console.log('last name')
   // If the last names are the same but the first names are different, increment the counter
   } else if (!checkNickname(billFirstName, shipFirstName)) {
-    console.log('first name')
     count++
   }
 

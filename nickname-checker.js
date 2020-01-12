@@ -42,7 +42,6 @@ const readCsvs = data => {
 
 // Initialising data array
 const data = []
-console.log('Array init')
 readCsvs(data)
 
 // Check inside the data array if there exists any array with the two names specified in it
@@ -53,7 +52,6 @@ const checkNickname = (name1, name2) => {
   if (name1 === name2) return true
 
   for (let i = 0; i < data.length; i++) {
-    if (data[i].includes('deborah')) console.log('ma')
     if (data[i].includes(name1) && data[i].includes(name2)) {
       return true
     }
