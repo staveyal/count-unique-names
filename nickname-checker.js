@@ -5,7 +5,6 @@ const path = require('path')
 // Path to nicknames folder
 const dataDir = path.join(process.cwd(), 'data', 'nicknames')
 const fs = require('fs')
-const parse = require('csv-parse/lib/sync')
 
 /**
  * Reads the CSV file and storing it to memory in an easily accessible form
@@ -21,7 +20,6 @@ const parse = require('csv-parse/lib/sync')
  * ]
  */
 const readSingleCsv = (data, loc) => {
-  console.log(loc)
   let content = fs.readFileSync(loc, { encoding: 'utf-8' })
   content = content.toLowerCase().replace(/ /g, '').replace(/\r/g, '')
   content = content.split('\n')
@@ -54,7 +52,6 @@ const checkNickname = (name1, name2) => {
 
   for (let i = 0; i < data.length; i++) {
     if (data[i].includes(name1) && data[i].includes(name2)) {
-      console.log('gottem')
       return true
     }
   }
