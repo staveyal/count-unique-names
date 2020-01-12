@@ -102,6 +102,7 @@ makeSingleEdit('gau')
  * @param {Array[String]} list The list of words to use to determine the correct spelling
  */
 const correct = (word, list) => {
+  word = word.toLowerCase()
   // Known word
   if (list.includes(word)) return word
 
@@ -130,4 +131,7 @@ const correct = (word, list) => {
 const correctFirstname = word => correct(word, firstnames)
 const correctSurname = word => correct(word, surnames)
 
-console.log(correctFirstname('debb'))
+module.exports = {
+  correctFirstname,
+  correctSurname
+}
