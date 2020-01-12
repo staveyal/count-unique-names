@@ -50,7 +50,10 @@ const checkNickname = (name1, name2) => {
   name1 = name1.toLowerCase()
   name2 = name2.toLowerCase()
 
+  if (name1 === name2) return true
+
   for (let i = 0; i < data.length; i++) {
+    if (data[i].includes('deborah')) console.log('ma')
     if (data[i].includes(name1) && data[i].includes(name2)) {
       return true
     }
